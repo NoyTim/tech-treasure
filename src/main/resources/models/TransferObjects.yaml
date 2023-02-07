@@ -1,0 +1,28 @@
+components:
+  schemas:
+    ToDo:
+      description: ToDo Entry
+      type: object
+      required:
+        - id
+        - task
+        - done
+      properties:
+        id:
+          type: string
+          description: ID of the ToDo
+        task:
+          type: string
+          description: Task to be done
+        done:
+          type: boolean
+          description: Status of completion
+    ToDoPost:
+      description: ToDo Entry used for POST Requests
+      type: object
+      required:
+        - task
+      properties:
+        task:
+          type: string
+          description: Task to be done

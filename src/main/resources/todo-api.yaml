@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: ToDoApp
+  description: Simple ToDoApp
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api/v1
+paths:
+  /todo:
+    get:
+      tags:
+        - ToDo
+      summary: Get all todos
+      operationId: getAllToDos
+      responses:
+        200:
+          description: Alll todos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'models/TransferObjects.yaml#/components/schemas/ToDo'
+    post:
+      tags:
+        - ToDo
+      summary: Create a todo
+      operationId: postToDo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'models/TransferObjects.yaml#/components/schemas/ToDoPost'
+      responses:
+        200:
+          description: Todo created
+          content:
+            application/json:
+              schema:
+                $ref: 'models/TransferObjects.yaml#/components/schemas/ToDo'
+        400:
+          description: Invalid input
+
+  /todo/{id}:
+    get:
+      tags:
+        - ToDo
+      summary: Retrieve a todo
+      operationId: getToDo
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            $ref: 'models/GeneralTypes.yaml#/components/schemas/Id'
+          description: Id of the todo
+
+      responses:
+        200:
+          description: Todo
+          content:
+            application/json:
+              schema:
+                $ref: 'models/TransferObjects.yaml#/components/schemas/ToDo'
+
+    put:
+      summary: Update a todo
+      tags:
+        - ToDo
+      operationId: putToDo
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            $ref: 'models/GeneralTypes.yaml#/components/schemas/Id'
+          description: Id of the to be updated todo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'models/TransferObjects.yaml#/components/schemas/ToDo'
+      responses:
+        200:
+          description: Todo successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: 'models/TransferObjects.yaml#/components/schemas/ToDo'
+        400:
+          description: Invalid input
+
+    delete:
+      summary: Delete a todo
+      tags:
+        - ToDo
+      operationId: deleteToDo
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            $ref: 'models/GeneralTypes.yaml#/components/schemas/Id'
+          description: Id of the to be deleted todo
+      responses:
+        200:
+          description: Todo successfully deleted
+          content:
+            application/json:
+              schema:
+                $ref: 'models/TransferObjects.yaml#/components/schemas/ToDo'
