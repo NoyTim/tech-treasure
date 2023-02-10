@@ -22,5 +22,13 @@ pipeline {
         }
       }
     }
+    stage('Push to docker hub') {
+      steps {
+        withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+          sh 'docker login -u noytim -p ${dockerhubpwd}'
+        }
+        sh 'docker push noytim/to-do-app'
+      }
+    }
   }
 }
